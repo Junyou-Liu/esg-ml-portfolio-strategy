@@ -61,9 +61,9 @@ SPY delivered a higher annual return over the same sample. The useful takeaway i
 
 ## Reproduce
 
-```bash
+```powershell
 python -m venv .venv
-.venv\\Scripts\\activate
+.venv\Scripts\activate
 python -m pip install -r requirements.txt
 python backtest.py
 ```
