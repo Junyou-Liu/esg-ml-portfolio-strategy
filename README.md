@@ -76,6 +76,7 @@ The benchmark in the generated tear sheet is SPY. This project is presented as a
 |   +-- trading-strategy-notes-cn.docx
 +-- media/
 |   +-- finai-esg-roadshow-video.mp4
++-- GITHUB_PUBLISHING.md
 +-- RESUME_SUMMARY.md
 ```
 
