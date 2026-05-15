@@ -1,134 +1,84 @@
 # ESG ML Portfolio Strategy
 
-This repository contains a systematic ESG ETF allocation and backtesting project built with Python, LumiBot, Yahoo Finance data, and optional Alpaca paper-trading support. The project combines machine-learning regime detection, core-satellite portfolio construction, and rule-based execution.
+This repository contains an academic ESG ETF allocation and backtesting project built with Python, LumiBot, Yahoo Finance data, and optional Alpaca paper-trading support. It combines machine-learning regime detection, core-satellite portfolio construction, and rule-based rebalancing. It is a research prototype, not investment advice or a live trading record.
 
-The strategy is designed as an academic research and backtesting project. It is not investment advice and is not a live trading recommendation.
+## What This Project Shows
 
-## Project Highlights
-
-- Built a two-level ESG portfolio strategy in Python using LumiBot, Yahoo Finance backtesting data, and optional Alpaca paper trading.
-- Used Random Forest / Logistic Regression signals to estimate market regime from an ESG broad-market proxy (`ESGU`).
-- Allocated dynamically across broad ESG ETFs (`ESGU`, `VSGX`, `SUSA`), green-theme ETFs (`ICLN`, `TAN`, `LIT`, `QCLN`), and a defensive Treasury ETF (`SHY`).
-- Added practical risk controls, including regime-based equity budget, satellite sleeve limits, defensive allocation, drift tolerance, and minimum trade-size filters.
-- Preserved full project evidence: strategy code, backtest report, trade report, pitch deck, roadshow script, and presentation video.
+- Built a two-level ESG ETF allocation framework with regime detection and core-satellite selection.
+- Used Random Forest / Logistic Regression signals from lagged returns, RSI, realized volatility, and short-horizon pullback risk.
+- Allocated across broad ESG ETFs (`ESGU`, `VSGX`, `SUSA`), green-theme ETFs (`ICLN`, `TAN`, `LIT`, `QCLN`), and a defensive Treasury ETF (`SHY`).
+- Added risk controls: regime-based equity budget, satellite sleeve limits, defensive allocation, drift tolerance, and minimum trade-size filters.
+- Preserved executable strategy code, a QuantStats/LumiBot tear sheet, a pitch deck, a roadshow script, and strategy notes.
 
 ## Strategy Logic
 
-The strategy separates the investment decision into two layers.
+The project separates the decision process into two layers.
 
-**1. Regime detection**
+1. Regime detection
+   - Uses `ESGU` as the ESG market proxy.
+   - Trains on recent price features such as lagged returns, RSI, volatility, and pullback-risk labels.
+   - Maps model probabilities into `RISK_ON`, `NEUTRAL`, and `RISK_OFF`.
 
-The model uses `ESGU` as the ESG market proxy and trains on recent price features:
-
-- lagged daily returns,
-- 14-day RSI,
-- 10-day realized volatility,
-- a secondary seven-day pullback-risk classifier.
-
-The model maps probability estimates into three regimes:
-
-- `RISK_ON`: higher equity allocation with more satellite exposure,
-- `NEUTRAL`: balanced ESG core allocation,
-- `RISK_OFF`: reduced equity exposure with a larger `SHY` defensive sleeve.
-
-**2. Portfolio construction**
-
-Within each sleeve, the strategy ranks ETFs by six-month momentum and selects the top two names. Target weights are then built from:
-
-- a regime-dependent equity budget,
-- a regime-dependent satellite share,
-- a 70/30 allocation split between the two strongest names in each sleeve,
-- defensive allocation to `SHY` and residual cash.
+2. Portfolio construction
+   - Selects the strongest names inside broad ESG and green-theme sleeves using six-month momentum.
+   - Applies a 70/30 split across the two selected names in each sleeve.
+   - Shifts exposure into `SHY` and cash under defensive regimes.
+   - Trades only when drift and minimum trade-size checks are met.
 
 ## Backtest Snapshot
 
-The included LumiBot / QuantStats report covers January 2020 to December 2025.
+The saved tear sheet covers 3 Jan 2020 to 30 Dec 2025 and compares the strategy with SPY.
 
 | Metric | Strategy |
 | --- | ---: |
-| Total return | 60% |
 | Annual return | 8.19% |
 | Annualized volatility | 18.05% |
 | Max drawdown | -32.55% |
 | Sharpe ratio | 0.33 |
 | Sortino ratio | 0.45 |
-| Reported beta vs benchmark | -0.01 |
+| Reported beta vs. benchmark | -0.01 |
 
-The benchmark in the generated tear sheet is SPY. This project is presented as a transparent strategy-design and backtesting exercise rather than a benchmark-beating claim: SPY delivered higher absolute return over this sample, while the strategy demonstrates a distinct ESG allocation framework with near-zero reported benchmark beta, explicit downside controls, and a documented decision process.
+SPY delivered a higher annual return over the same sample. The useful takeaway is therefore not a benchmark-beating claim; it is the documented process for ESG allocation, risk budgeting, regime-aware exposure control, and reproducible backtesting.
 
 ## Repository Structure
 
 ```text
 .
-+-- backtest.py                         # Reproducible Yahoo Finance backtest entry point
-+-- paper_trade.py                      # Optional Alpaca paper-trading entry point
-+-- config.py                           # Environment-based Alpaca configuration
-+-- requirements.txt                    # Python dependencies
-+-- strategies/
-|   +-- strategy.py                     # Main two-level ESG strategy
-|   +-- example_strategy_*.py           # Course reference strategies
-+-- results/
-|   +-- backtest-tearsheet-2020-2025.html
-|   +-- backtest-trades-2020-2025.html
-+-- docs/
-|   +-- esg-ml-portfolio-pitch-deck.pdf
-|   +-- fund-roadshow-presentation-script.pdf
-|   +-- trading-strategy-notes-cn.docx
-+-- media/
-|   +-- esg-ml-portfolio-roadshow-video.mp4
-+-- GITHUB_PUBLISHING.md
-+-- RESUME_SUMMARY.md
+|-- backtest.py
+|-- paper_trade.py
+|-- config.py
+|-- requirements.txt
+|-- strategies/
+|   |-- strategy.py
+|   `-- example_strategy_*.py
+|-- results/
+|   `-- backtest-tearsheet-2020-2025.html
+`-- docs/
+    |-- esg-ml-portfolio-pitch-deck.pdf
+    |-- fund-roadshow-presentation-script.pdf
+    `-- trading-strategy-notes-cn.docx
 ```
 
-## Quick Start
-
-Create and activate a virtual environment.
+## Reproduce
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
-```
-
-Install dependencies.
-
-```bash
+.venv\\Scripts\\activate
 python -m pip install -r requirements.txt
-```
-
-Run the backtest.
-
-```bash
 python backtest.py
 ```
 
-The generated output can be compared with the saved reports in `results/`.
-
-## Optional Paper Trading
-
-Paper trading requires an Alpaca paper account. Create a local `.env` file from `.env.example`:
+Optional Alpaca paper trading requires local credentials in `.env`. Leave `.env.example` blank and never commit real keys.
 
 ```bash
-ALPACA_API_KEY=YOUR_ALPACA_API_KEY
-ALPACA_API_SECRET=YOUR_ALPACA_API_SECRET
+ALPACA_API_KEY=
+ALPACA_API_SECRET=
 ```
 
-Then run:
+## Scope and Limits
 
-```bash
-python paper_trade.py
-```
+Historical backtests are sensitive to data source, parameter choice, transaction assumptions, and market regime. This repository should be read as evidence of systematic strategy design and risk-control implementation, not as a recommendation to buy or trade any ETF.
 
-Only paper-trading credentials should be used. Do not commit `.env` or any API keys.
+## Stack
 
-## Project Artifacts
-
-- [Backtest tear sheet](results/backtest-tearsheet-2020-2025.html)
-- [Backtest trades report](results/backtest-trades-2020-2025.html)
-- [Pitch deck](docs/esg-ml-portfolio-pitch-deck.pdf)
-- [Roadshow script](docs/fund-roadshow-presentation-script.pdf)
-- [Strategy notes](docs/trading-strategy-notes-cn.docx)
-- [Roadshow video](media/esg-ml-portfolio-roadshow-video.mp4)
-
-## Disclaimer
-
-This repository is for academic and portfolio demonstration purposes only. Historical backtests are sensitive to data source, parameter choice, transaction assumptions, and market regime. The project should be read as evidence of systematic strategy design and implementation, not as an investment recommendation.
+Python, LumiBot, QuantStats, scikit-learn, pandas, Yahoo Finance data, Alpaca paper-trading interface, and PowerPoint/PDF reporting.
