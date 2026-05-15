@@ -1,6 +1,6 @@
-# FinAI Innovators: AI-Driven ESG Allocation Strategy
+# ESG ML Portfolio Strategy
 
-This repository contains a systematic ESG ETF allocation strategy built for the NUS QF5208 AI and FinTech group project. The project combines machine-learning regime detection, core-satellite portfolio construction, and rule-based execution in LumiBot, with optional Alpaca paper-trading support.
+This repository contains a systematic ESG ETF allocation and backtesting project built with Python, LumiBot, Yahoo Finance data, and optional Alpaca paper-trading support. The project combines machine-learning regime detection, core-satellite portfolio construction, and rule-based execution.
 
 The strategy is designed as an academic research and backtesting project. It is not investment advice and is not a live trading recommendation.
 
@@ -10,7 +10,7 @@ The strategy is designed as an academic research and backtesting project. It is 
 - Used Random Forest / Logistic Regression signals to estimate market regime from an ESG broad-market proxy (`ESGU`).
 - Allocated dynamically across broad ESG ETFs (`ESGU`, `VSGX`, `SUSA`), green-theme ETFs (`ICLN`, `TAN`, `LIT`, `QCLN`), and a defensive Treasury ETF (`SHY`).
 - Added practical risk controls, including regime-based equity budget, satellite sleeve limits, defensive allocation, drift tolerance, and minimum trade-size filters.
-- Preserved full project evidence: strategy code, backtest report, trade report, pitch deck, roadshow script, and project video.
+- Preserved full project evidence: strategy code, backtest report, trade report, pitch deck, roadshow script, and presentation video.
 
 ## Strategy Logic
 
@@ -71,11 +71,11 @@ The benchmark in the generated tear sheet is SPY. This project is presented as a
 |   +-- backtest-tearsheet-2020-2025.html
 |   +-- backtest-trades-2020-2025.html
 +-- docs/
-|   +-- finai-innovators-esg-fund-pitch-deck.pdf
+|   +-- esg-ml-portfolio-pitch-deck.pdf
 |   +-- fund-roadshow-presentation-script.pdf
 |   +-- trading-strategy-notes-cn.docx
 +-- media/
-|   +-- finai-esg-roadshow-video.mp4
+|   +-- esg-ml-portfolio-roadshow-video.mp4
 +-- GITHUB_PUBLISHING.md
 +-- RESUME_SUMMARY.md
 ```
@@ -124,10 +124,10 @@ Only paper-trading credentials should be used. Do not commit `.env` or any API k
 
 - [Backtest tear sheet](results/backtest-tearsheet-2020-2025.html)
 - [Backtest trades report](results/backtest-trades-2020-2025.html)
-- [Pitch deck](docs/finai-innovators-esg-fund-pitch-deck.pdf)
+- [Pitch deck](docs/esg-ml-portfolio-pitch-deck.pdf)
 - [Roadshow script](docs/fund-roadshow-presentation-script.pdf)
 - [Strategy notes](docs/trading-strategy-notes-cn.docx)
-- [Roadshow video](media/finai-esg-roadshow-video.mp4)
+- [Roadshow video](media/esg-ml-portfolio-roadshow-video.mp4)
 
 ## Disclaimer
 

@@ -3,7 +3,13 @@
 Recommended repository name:
 
 ```text
-finai-esg-allocation-strategy
+esg-ml-portfolio-strategy
+```
+
+Resume-facing Chinese title:
+
+```text
+ESG ETF 机器学习资产配置与策略回测
 ```
 
 Create a new **empty** GitHub repository under `Junyou-Liu`:
@@ -17,7 +23,7 @@ This local project already contains those files and a clean initial commit.
 After the empty repository is created, run the following commands from this folder:
 
 ```bash
-git remote add origin https://github.com/Junyou-Liu/finai-esg-allocation-strategy.git
+git remote add origin https://github.com/Junyou-Liu/esg-ml-portfolio-strategy.git
 git push -u origin main
 ```
 

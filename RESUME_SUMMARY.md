@@ -2,7 +2,7 @@
 
 ## English Version
 
-**AI-Driven ESG Allocation Strategy | Python, LumiBot, Alpaca, Machine Learning**
+**ESG ETF Machine Learning Portfolio Backtest | Python, LumiBot, Alpaca**
 
 - Designed a two-level ESG ETF allocation strategy combining machine-learning regime detection and core-satellite portfolio construction.
 - Built Random Forest / Logistic Regression signals from lagged returns, RSI, volatility, and seven-day pullback risk to classify market regimes.
@@ -12,7 +12,7 @@
 
 ## 中文版本
 
-**AI 驱动 ESG 资产配置策略 | Python, LumiBot, Alpaca, 机器学习**
+**ESG ETF 机器学习资产配置与策略回测 | Python, LumiBot, Alpaca**
 
 - 设计两层 ESG ETF 配置策略，将机器学习市场状态识别与核心-卫星资产配置框架结合。
 - 基于滞后收益率、RSI、波动率及 7 日回撤风险构建 Random Forest / Logistic Regression 信号，用于识别 `RISK_ON`、`NEUTRAL`、`RISK_OFF` 三类市场状态。
