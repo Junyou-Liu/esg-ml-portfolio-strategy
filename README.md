@@ -1,18 +1,37 @@
 # ESG ML Portfolio Strategy
 
-This repository contains an academic ESG ETF allocation and backtesting project built with Python, LumiBot, Yahoo Finance data, and optional Alpaca paper-trading support. It combines machine-learning regime detection, core-satellite portfolio construction, and rule-based rebalancing. It is a research prototype, not investment advice or a live trading record.
+A research prototype for ESG-aware equity selection, portfolio backtesting, and paper-trading validation.
 
-## What This Project Shows
+This project is designed for sustainable-finance research and simulated strategy evaluation. It is not investment advice, a live fund product, or a live trading record.
+
+## Project Overview
+
+This repository contains an academic ESG ETF allocation and backtesting project built with Python, LumiBot, Yahoo Finance data, and optional Alpaca paper-trading support. It combines machine-learning regime detection, core-satellite portfolio construction, and rule-based rebalancing.
+
+The main purpose is to show how ESG and climate-transition themes can be translated into a measurable portfolio research workflow while keeping benchmark comparison, drawdown review, and simulation boundaries explicit.
+
+## Tech Stack
+
+| Area | Tools |
+| --- | --- |
+| Language | Python |
+| Backtesting | LumiBot, QuantStats |
+| Modeling | scikit-learn |
+| Data | pandas, Yahoo Finance data |
+| Paper Trading | Alpaca paper-trading interface |
+| Reporting | HTML tear sheet, PDF pitch deck, strategy notes |
+
+## Key Features
 
 - Built a two-level ESG ETF allocation framework with regime detection and core-satellite selection.
-- Used Random Forest / Logistic Regression signals from lagged returns, RSI, realized volatility, and short-horizon pullback risk.
+- Used Random Forest and Logistic Regression signals from lagged returns, RSI, realized volatility, and pullback-risk labels.
 - Allocated across broad ESG ETFs (`ESGU`, `VSGX`, `SUSA`), green-theme ETFs (`ICLN`, `TAN`, `LIT`, `QCLN`), and a defensive Treasury ETF (`SHY`).
-- Added risk controls: regime-based equity budget, satellite sleeve limits, defensive allocation, drift tolerance, and minimum trade-size filters.
-- Preserved executable strategy code, a QuantStats/LumiBot tear sheet, a pitch deck, a roadshow script, and strategy notes.
+- Added risk controls including regime-based equity budget, satellite sleeve limits, defensive allocation, drift tolerance, and minimum trade-size filters.
+- Preserved executable strategy code, a QuantStats / LumiBot tear sheet, a pitch deck, a roadshow script, and strategy notes.
 
-## Strategy Logic
+## Methodology
 
-The project separates the decision process into two layers.
+The strategy separates the decision process into two layers.
 
 1. Regime detection
    - Uses `ESGU` as the ESG market proxy.
@@ -25,7 +44,7 @@ The project separates the decision process into two layers.
    - Shifts exposure into `SHY` and cash under defensive regimes.
    - Trades only when drift and minimum trade-size checks are met.
 
-## Backtest Snapshot
+## Results / Metrics
 
 The saved tear sheet covers 3 Jan 2020 to 30 Dec 2025 and compares the strategy with SPY.
 
@@ -39,6 +58,22 @@ The saved tear sheet covers 3 Jan 2020 to 30 Dec 2025 and compares the strategy 
 | Reported beta vs. benchmark | -0.01 |
 
 SPY delivered a higher annual return over the same sample. The useful takeaway is therefore not a benchmark-beating claim; it is the documented process for ESG allocation, risk budgeting, regime-aware exposure control, and reproducible backtesting.
+
+## How to Run
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+python -m pip install -r requirements.txt
+python backtest.py
+```
+
+Optional Alpaca paper trading requires local credentials in `.env`. Leave `.env.example` blank and never commit real keys.
+
+```bash
+ALPACA_API_KEY=
+ALPACA_API_SECRET=
+```
 
 ## Repository Structure
 
@@ -59,26 +94,9 @@ SPY delivered a higher annual return over the same sample. The useful takeaway i
     `-- trading-strategy-notes-cn.docx
 ```
 
-## Reproduce
+## Limitations
 
-```powershell
-python -m venv .venv
-.venv\Scripts\activate
-python -m pip install -r requirements.txt
-python backtest.py
-```
-
-Optional Alpaca paper trading requires local credentials in `.env`. Leave `.env.example` blank and never commit real keys.
-
-```bash
-ALPACA_API_KEY=
-ALPACA_API_SECRET=
-```
-
-## Scope and Limits
-
-Historical backtests are sensitive to data source, parameter choice, transaction assumptions, and market regime. This repository should be read as evidence of systematic strategy design and risk-control implementation, not as a recommendation to buy or trade any ETF.
-
-## Stack
-
-Python, LumiBot, QuantStats, scikit-learn, pandas, Yahoo Finance data, Alpaca paper-trading interface, and PowerPoint/PDF reporting.
+- Historical backtests are sensitive to data source, parameter choice, transaction assumptions, and market regime.
+- Paper trading is used only as a simulated validation environment, not as live capital deployment.
+- The project should not be described as a live fund, a fundraising record, or a recommendation to buy or trade any ETF.
+- The strongest interview angle is sustainable-finance research design: ESG screening, risk budgeting, benchmark comparison, and transparent limits.
